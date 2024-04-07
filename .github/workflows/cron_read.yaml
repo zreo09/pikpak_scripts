@@ -1,0 +1,26 @@
+name: Scheduled Node.js CI
+
+on:
+  schedule:
+    - cron: "0 0 * * *"
+  workflow_dispatch: # 添加这行以允许手动触发
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10 # 设置作业超时时间为10分钟
+
+    strategy:
+      matrix:
+        node-version: [20.x] 
+
+    steps:
+      - uses: actions/checkout@v3 
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install dependencies
+        run: npm install 
+      - name: Run a script
+        run: node main.js 
