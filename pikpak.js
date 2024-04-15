@@ -1,4 +1,4 @@
-
+const fs = require('fs');
 const { CookieJar, Cookie } = require("tough-cookie");
 const { wrapper } = require("axios-cookiejar-support");
 const axios = require("axios");
@@ -521,6 +521,35 @@ class PikPak {
     console.log(
       `本次注册用户信息如下: 用户ID: ${this.user_id}, 用户昵称: ${this.name}, 用户邮箱: ${this.email}, 用户密码: ${this.password}, 用户设备ID: ${this.deviceid}, 用户邀请码: ${this.user_code}`
     );
+    const userData = {
+    id: this.user_id,
+    用户名: this.email,
+    密码: this.password
+  };
+
+  // 读取或创建空的用户数组
+  let usersArray = [];
+  try {
+    const userDataJson = fs.readFileSync('users.json', 'utf8');
+    if (userDataJson) {
+      usersArray = JSON.parse(userDataJson);
+    }
+  } catch (readError) {
+    console.error('Error reading users.json:', readError);
+  }
+
+  // 添加新用户信息到数组中
+  usersArray.push(userData);
+
+  // 将用户数组写回到 JSON 文件中
+  const jsonUserData = JSON.stringify(usersArray);
+  fs.writeFile('users.json', jsonUserData, (writeErr) => {
+    if (writeErr) {
+      console.error('Error writing user data to JSON file:', writeErr);
+    } else {
+      console.log('User data has been written to users.json');
+    }
+  });
   }
 }
 
