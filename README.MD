@@ -7,7 +7,7 @@
 
 使用vercel等平台托管就可以得到一个pikpak会员共享页面
 
-[pikpak](https://github.com/Bear-biscuit/pikpak_scripts/blob/main/vip.png)
+![pikpak](https://github.com/Bear-biscuit/pikpak_scripts/blob/main/vip.png)
 
 本地使用就是 npm i 下载依赖
 node main.js 运行脚本
